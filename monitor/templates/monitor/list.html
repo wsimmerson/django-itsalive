@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class='col-sm-4'></div>
+  <div class='col-sm-4'>
+    <table class='table table-bordered table-condensed'>
+      <tr>
+        <td class='UP'>{{ up }}</td>
+        <td class='WARNING'>{{ warning }}</td>
+        <td class='UNREACHABLE'>{{ unreachable }}</td>
+      </tr>
+    </table>
+  </div>
+  <div class='col-sm-12'><div>
+  {% for group, hosts in host_list.items %}
+  <div class='col-sm-3'>
+    <table class='table table-condensed table-bordered table-striped'>
+      <tr>
+        <th colspan='2'>{{ group }}</th>
+      </tr>
+      {% for host in hosts %}
+        <tr>
+          <td><a href="{% url 'monitor:detail' host.id %}">{{ host }}</a></td>
+          <td class='{{ host.status }}'>{{ host.status }}</td>
+        </tr>
+      {% endfor %}
+    </table>
+  </div>
+  {% endfor %}
+{% endblock %}

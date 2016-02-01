@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <table class='table table-bordered table-condensed table-striped'>
+    <tr><th>Overview Map</th></tr>
+    <tr><td id='overview_map'></td></tr>
+  </table>
+
+  <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+  <script>
+    var map = L.map('overview_map').setView([42.292529, -82.914347], 11);
+    {% include 'mapicons.html' %}
+
+    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {}).addTo(map)
+
+    {% for host in hosts %}
+      L.marker([{{ host.latitude_y }}, {{ host.longitude_x }}], {icon: {{ host.status }}ICON })
+       .addTo(map)
+       .bindPopup('<a href="{% url 'monitor:detail' host.id %}">{{ host.name }}</a>');
+
+    {% endfor %}
+
+  </script>
+{% endblock %}

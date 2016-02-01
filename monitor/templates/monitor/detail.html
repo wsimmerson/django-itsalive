@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <table class='table table-condensed table-bordered table-striped'>
+      <tbody>
+        <tr>
+          <th colspan='2'>{{ detail.name }}</th>
+        </tr>
+        <tr>
+          <th style='width: 200px'>{{ detail.group }}</th>
+          <td rowspan='6' id='detailmap'></td>
+        </tr>
+        <tr>
+          <td>{{ detail.address }}</td>
+        </tr>
+        <tr>
+          <td>{{ detail.ip4address }}</td>
+        </tr>
+        <tr>
+          <td>{{ detail.latitude_y }}, {{ detail.longitude_x }}</td>
+        </tr>
+        <tr>
+          <td> {{ detail.status }}</td>
+        </tr>
+        <tr>
+          <td> Last Check: <br>{{ detail.updated }}</td>
+        </tr>
+        <tr>
+          <td colspan='2'>{{ detail.status_detail | safe}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+    <script>
+      var map = L.map('detailmap').setView([{{ detail.latitude_y }}, {{ detail.longitude_x }}], 13);
+
+      {% include 'mapicons.html' %}
+
+      L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {}).addTo(map);
+
+      L.marker([{{ detail.latitude_y }}, {{ detail.longitude_x }}], {icon: {{ detail.status }}ICON })
+       .addTo(map)
+       .bindPopup('{{ detail.name }}<br>');
+
+    </script>
+{% endblock %}

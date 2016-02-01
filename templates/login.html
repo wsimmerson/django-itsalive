@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class='col-sm-3'>
+  <form method='POST' action="/">
+    {% csrf_token %}
+    <div class='input-group'>
+      <span class='input-group-addon'>Username</span>
+      <input name='username' class='form-control' />
+    </div>
+    <br>
+    <div class='input-group'>
+      <span class='input-group-addon'>Password</span>
+      <input name='password' class='form-control' type='password'>
+    </div>
+    <br>
+    <button class='btn btn-primary'>Login</button>
+
+  </from>
+</div>
+{% endblock %}
