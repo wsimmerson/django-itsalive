@@ -44,6 +44,7 @@ class Command(BaseCommand):
                               settings.EMAIL_HOST_USER,
                               settings.EMAIL_TO)
             else:
+                host.last_seen = datetime.now()
                 if host.status == 'WARNING' or host.status == 'UNREACHABLE':
                     host.status = 'UP'
                     send_mail('RECOVERY: ' + host.name,

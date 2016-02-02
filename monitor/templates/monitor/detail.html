@@ -8,8 +8,8 @@
           <th colspan='2'>{{ detail.name }}</th>
         </tr>
         <tr>
-          <th style='width: 200px'>{{ detail.group }}</th>
-          <td rowspan='6' id='detailmap'></td>
+          <th style='width: 30%'>{{ detail.group }}</th>
+          <td rowspan='7' id='detailmap'></td>
         </tr>
         <tr>
           <td>{{ detail.address }}</td>
@@ -21,10 +21,13 @@
           <td>{{ detail.latitude_y }}, {{ detail.longitude_x }}</td>
         </tr>
         <tr>
-          <td> {{ detail.status }}</td>
+          <td> <label>Last Seen:</label> {{ detail.last_seen }}</td>
         </tr>
         <tr>
-          <td> Last Check: <br>{{ detail.updated }}</td>
+          <td><label>Last Check:</label> {{ detail.updated }}</td>
+        </tr>
+        <tr>
+          <td class='{{ detail.status }}'>{{ detail.status }}</td>
         </tr>
         <tr>
           <td colspan='2'>{{ detail.status_detail | safe}}</td>

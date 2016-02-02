@@ -23,6 +23,7 @@ class Host(models.Model):
                               max_length=11)
     status_detail = models.TextField()
     updated = models.DateTimeField(auto_now=True)
+    last_seen = models.DateTimeField(auto_now=False, auto_now_add=True)
 
     def __str__(self):
         return self.name

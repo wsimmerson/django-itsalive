@@ -4,11 +4,19 @@
 {% block content %}
   <table class='table table-striped table-bordered table-condensed'>
     <tr>
-      <th colspan='4'>{{ type }}</th>
+      <th colspan='5'>{{ type }}</th>
     </tr>
     {% if not hosts %}
       <tr>
-        <td colspan='4' class='UP'>No Problems found!</td>
+        <td colspan='5' class='UP'>No Problems found!</td>
+      </tr>
+    {% else %}
+      <tr>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Last Seen</th>
+        <th>Last Check</th>
+        <th>Status</th>
       </tr>
     {% endif %}
 
@@ -16,7 +24,8 @@
     <tr>
       <td><a href='{% url 'monitor:detail' host.id %}'>{{ host.name }}</a></td>
       <td>{{ host.address }}</td>
-      <td>{{ updated }}</td>
+      <td>{{ host.last_seen }}</td>
+      <td>{{ host.updated }}</td>
       <td class='{{host.status}}'>{{ host.status}}</td>
     </tr>
     {% endfor %}
