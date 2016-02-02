@@ -37,3 +37,16 @@ def overview_map(request):
     hosts = Host.objects.all()
     context = {'hosts': hosts}
     return render(request, 'monitor/overview_map.html', context)
+
+
+@login_required
+def warning_list(request):
+    hosts = Host.objects.filter(status='WARNING')
+    return render(request, 'monitor/status_list.html', {'hosts': hosts,
+                                                        'type': 'Warning'})
+
+@login_required
+def unreachable_list(request):
+    hosts = Host.objects.filter(status='WARNING')
+    return render(request, 'monitor/status_list.html', {'hosts': hosts,
+                                                        'type': 'Unreachable'})

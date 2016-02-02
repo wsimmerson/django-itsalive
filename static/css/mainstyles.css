@@ -1,3 +1,9 @@
+body {
+  background: url(/static/img/background.jpg) no-repeat fixed;
+  background-size: cover;
+  background-color: #fff;
+}
+
 #detailmap {
   height: 200px;
   width: auto;
@@ -8,7 +14,13 @@
   width: 0 auto;
 }
 
+tbody {
+  background-color: #eee;
+}
+
 .table th {
+  background-color: #101010;
+  color: #ccc;
   text-align: center;
 }
 

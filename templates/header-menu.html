@@ -1,12 +1,11 @@
 {% load staticfiles %}
 
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="{% url 'front' %}">
-         <img alt="Brand" src="{% static 'img/munster.jpg' %}" style='height: 25px'>
+         It's Alive
       </a>
-      <p class='navbar-text'>It's Alive!</p>
     </div>
 
     {% if user.is_authenticated %}
@@ -31,3 +30,5 @@
 
   </div>
 </nav>
+
+<div style='height: 70px;'></div>

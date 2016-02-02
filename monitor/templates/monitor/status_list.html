@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+  <table class='table table-striped table-bordered table-condensed'>
+    <tr>
+      <th colspan='4'>{{ type }}</th>
+    </tr>
+    {% if not hosts %}
+      <tr>
+        <td colspan='4' class='UP'>No Problems found!</td>
+      </tr>
+    {% endif %}
+
+    {% for host in hosts %}
+    <tr>
+      <td><a href='{% url 'monitor:detail' host.id %}'>{{ host.name }}</a></td>
+      <td>{{ host.address }}</td>
+      <td>{{ updated }}</td>
+      <td class='{{host.status}}'>{{ host.status}}</td>
+    </tr>
+    {% endfor %}
+  </table>
+{% endblock %}
