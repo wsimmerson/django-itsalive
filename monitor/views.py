@@ -35,7 +35,15 @@ def detail(request, host_id):
 @login_required
 def overview_map(request):
     hosts = Host.objects.all()
-    context = {'hosts': hosts}
+    up = len(Host.objects.filter(status='UP'))
+    warning = len(Host.objects.filter(status='WARNING'))
+    unreachable = len(Host.objects.filter(status='UNREACHABLE'))
+    context = {
+        'hosts': hosts,
+        'up': up,
+        'warning': warning,
+        'unreachable': unreachable
+        }
     return render(request, 'monitor/overview_map.html', context)
 
 
