@@ -4,5 +4,8 @@ from django.contrib import admin
 from .models import Hostgroup, Host
 
 
+class HostAdmin(admin.ModelAdmin):
+    list_display = ('name', 'group', 'ip4address', 'last_seen', 'updated', 'status')
+
+admin.site.register(Host, HostAdmin)
 admin.site.register(Hostgroup)
-admin.site.register(Host)
