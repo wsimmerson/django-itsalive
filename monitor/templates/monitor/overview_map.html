@@ -23,7 +23,6 @@
       L.marker([{{ host.latitude_y }}, {{ host.longitude_x }}], {icon: {{ host.status }}ICON })
        .addTo(map)
        .bindPopup('<a href="{% url 'monitor:detail' host.id %}">{{ host.name }}</a>');
-
     {% endfor %}
 
   </script>

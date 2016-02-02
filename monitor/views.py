@@ -55,6 +55,6 @@ def warning_list(request):
 
 @login_required
 def unreachable_list(request):
-    hosts = Host.objects.filter(status='WARNING')
+    hosts = Host.objects.filter(status='UNREACHABLE')
     return render(request, 'monitor/status_list.html', {'hosts': hosts,
                                                         'type': 'Unreachable'})
