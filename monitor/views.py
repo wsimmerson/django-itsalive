@@ -2,12 +2,14 @@ from django.shortcuts import get_object_or_404, render
 from django.contrib.auth.decorators import login_required
 from .models import Hostgroup, Host
 
+from collections import OrderedDict
+
 
 # Create your views here.
 @login_required
 def host_list(request):
     groups = Hostgroup.objects.all().order_by('-name')
-    host_list = {}
+    host_list = OrderedDict()
     for group in groups:
         host_list[group.name] = Host.objects.filter(group__name=group.name)
 
