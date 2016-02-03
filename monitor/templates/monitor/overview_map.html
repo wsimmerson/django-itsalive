@@ -4,12 +4,12 @@
 
   <table class='table table-bordered table-condensed table-striped'>
     <tr><th colspan='3'>Overview Map</th></tr>
-    <tr><td id='overview_map' colspan='3'></td></tr>
     <tr>
       <td class='UP'>{{ up }}</td>
       <td class='WARNING'><a href='{% url 'monitor:warning_list' %}'>{{ warning }}</a></td>
       <td class='UNREACHABLE'><a href='{% url 'monitor:unreachable_list' %}'>{{ unreachable }}</a></td>
     </tr>
+    <tr><td id='overview_map' colspan='3'></td></tr>
   </table>
 
   <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>

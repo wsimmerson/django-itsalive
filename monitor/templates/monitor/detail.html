@@ -27,7 +27,7 @@
           <td><label>Last Check:</label> {{ detail.updated }}</td>
         </tr>
         <tr>
-          <td class='{{ detail.status }}' style='height: 200px; line-height: 200px'>{{ detail.status }}</td>
+          <td class='{{ detail.status }}' style='height: 200px; line-height: 200px'><strong>{{ detail.status }}<strong></td>
         </tr>
         <tr>
           <td colspan='2'>{{ detail.status_detail | safe}}</td>

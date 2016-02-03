@@ -34,23 +34,32 @@ class Command(BaseCommand):
             if 'unreachable' in details or '100% packet loss' in details or '100% loss' in details:
                 if host.status == 'UP':
                     host.status = 'WARNING'
+                    message = "Failed to verify status of " + host.name
+                    message += "<br>" + host.status_detail
                     send_mail('WARNING: ' + host.name,
-                              'Failed to verify status of ' + host.name + '\r\n' + host.status_detail,
+                              '',
                               settings.EMAIL_HOST_USER,
-                              settings.EMAIL_TO)
+                              settings.EMAIL_TO,
+                              html_message=message)
                 elif host.status == 'WARNING':
+                    message = "Failed to verify status of " + host.name
+                    message += "<br>" + host.status_detail
                     host.status = 'UNREACHABLE'
                     send_mail('2nd WARNING: ' + host.name + ' UNREACHABLE',
-                              'Failed to verify status of ' + host.name + '\r\n' + host.status_detail,
+                              '',
                               settings.EMAIL_HOST_USER,
-                              settings.EMAIL_TO)
+                              settings.EMAIL_TO,
+                              html_message=message)
             else:
                 host.last_seen = datetime.now()
                 if host.status == 'WARNING' or host.status == 'UNREACHABLE':
                     host.status = 'UP'
+                    message = "Successfully connected to " + host.name
+                    message += "<br>" + host.status_detail
                     send_mail('RECOVERY: ' + host.name,
-                              'Successfully connected to ' + host.name + '\r\n' + host.status_detail,
+                              '',
                               settings.EMAIL_HOST_USER,
-                              settings.EMAIL_TO)
+                              settings.EMAIL_TO,
+                              html_message=message)
 
             host.save()
