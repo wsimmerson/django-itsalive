@@ -2,19 +2,39 @@
 
 {% block content %}
 
+  {% if message %}
+    <div class='alert alert-warning'>{{ message }}</div>
+  {% endif %}
+
   <table class='table table-bordered table-condensed table-striped'>
-    <tr><th colspan='3'>Overview Map</th></tr>
+    <tr><th colspan='4'>Overview Map</th></tr>
     <tr>
+      <td  style='width: 20%'>
+        <form method='GET' action=''>
+          <div class='input-group' >
+          <select name='hostgroup' class='form-control selectpicker'>
+            <option value='' default=default>ALL</option>
+              {% for group in hostgroups %}
+                <option value='{{group.name}}'>{{ group.name }}</option>
+              {% endfor %}
+            </select>
+            <span class='input-group-btn'>
+              <button class='btn btn-primary'>Go</button>
+            </span>
+          </div>
+        </form>
+      </td>
       <td class='UP'>{{ up }}</td>
       <td class='WARNING'><a href='{% url 'monitor:warning_list' %}'>{{ warning }}</a></td>
       <td class='UNREACHABLE'><a href='{% url 'monitor:unreachable_list' %}'>{{ unreachable }}</a></td>
     </tr>
-    <tr><td id='overview_map' colspan='3'></td></tr>
+    <tr><td id='overview_map' colspan='4'></td></tr>
   </table>
 
   <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
   <script>
-    var map = L.map('overview_map').setView([42.292529, -82.914347], 11);
+    //var map = L.map('overview_map').setView([42.292529, -82.914347], 11);
+    var map = L.map('overview_map').setView([{{ first_y }}, {{ first_x }}], 11);
     {% include 'mapicons.html' %}
 
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {}).addTo(map)
@@ -26,4 +46,5 @@
     {% endfor %}
 
   </script>
+  {% include 'refreshpage.html' %}
 {% endblock %}

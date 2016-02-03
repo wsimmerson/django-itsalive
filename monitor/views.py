@@ -34,15 +34,30 @@ def detail(request, host_id):
 
 @login_required
 def overview_map(request):
-    hosts = Host.objects.all()
+    group = request.GET.get('hostgroup')
+    message = None
+    if group:
+        hosts = Host.objects.filter(group__name=group)
+    else:
+        hosts = Host.objects.all()
+
+    if not hosts:
+        message = "Hostgroup " + group + " not found!"
+        hosts = Host.objects.all()
+
     up = len(Host.objects.filter(status='UP'))
     warning = len(Host.objects.filter(status='WARNING'))
     unreachable = len(Host.objects.filter(status='UNREACHABLE'))
+    hostgroups = Hostgroup.objects.all()
     context = {
         'hosts': hosts,
+        'hostgroups': hostgroups,
         'up': up,
         'warning': warning,
-        'unreachable': unreachable
+        'unreachable': unreachable,
+        'first_y': hosts[0].latitude_y,
+        'first_x': hosts[0].longitude_x,
+        'message': message
         }
     return render(request, 'monitor/overview_map.html', context)
 
