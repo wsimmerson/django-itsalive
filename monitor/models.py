@@ -10,12 +10,13 @@ class Hostgroup(models.Model):
 
 
 class Host(models.Model):
+    geolink = "<a href='http://mygeoposition.com/'>Lookup GeoCode</a>"
     name = models.CharField(max_length=255)
     group = models.ForeignKey(Hostgroup, on_delete=models.CASCADE)
     address = models.TextField()
-    ip4address = models.GenericIPAddressField()
-    latitude_y = models.FloatField()
-    longitude_x = models.FloatField()
+    ip4address = models.GenericIPAddressField(unique=True)
+    latitude_y = models.FloatField(help_text=geolink)
+    longitude_x = models.FloatField(help_text=geolink)
     status = models.CharField(choices=[('UP', 'UP'),
                                        ('WARNING', 'WARNING'),
                                        ('UNREACHABLE', 'UNREACHABLE')],

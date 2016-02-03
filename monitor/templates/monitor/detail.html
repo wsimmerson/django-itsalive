@@ -12,7 +12,7 @@
           <td rowspan='7' id='detailmap'></td>
         </tr>
         <tr>
-          <td>{{ detail.address }}</td>
+          <td><pre>{{ detail.address | safe }}</pre></td>
         </tr>
         <tr>
           <td>{{ detail.ip4address }}</td>
