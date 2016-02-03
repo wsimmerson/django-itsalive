@@ -29,6 +29,7 @@ class Command(BaseCommand):
 
             details = res[0].decode('utf-8')
             host.status_detail = details.replace('\r\n', '<br>')
+            host.status_detail = host.status_detail.replace('\n', '<br>')
 
             if 'unreachable' in details or '100% packet loss' in details or '100% loss' in details:
                 if host.status == 'UP':
