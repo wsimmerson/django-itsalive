@@ -6,7 +6,7 @@ from .models import Hostgroup, Host
 # Create your views here.
 @login_required
 def host_list(request):
-    groups = Hostgroup.objects.all()
+    groups = Hostgroup.objects.all().order_by('-name')
     host_list = {}
     for group in groups:
         host_list[group.name] = Host.objects.filter(group__name=group.name)
