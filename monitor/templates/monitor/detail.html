@@ -9,7 +9,15 @@
         </tr>
         <tr>
           <th style='width: 30%'>{{ detail.group }}</th>
-          <td rowspan='7' id='detailmap'></td>
+          <td rowspan='8' id='detailmap'></td>
+        </tr>
+        <tr>
+          <td>
+            {% if user.is_staff %}
+              {% load admin_urls %}
+              <a href="{% url opts|admin_urlname:'change' detail.id %}" class='btn btn-sm btn-warning'>Edit</a>
+            {% endif %}
+          </td>
         </tr>
         <tr>
           <td><pre>{{ detail.address | safe }}</pre></td>

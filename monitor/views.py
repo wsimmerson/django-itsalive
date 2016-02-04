@@ -29,8 +29,8 @@ def host_list(request):
 @login_required
 def detail(request, host_id):
     detail = get_object_or_404(Host, id=host_id)
-    print(detail)
-    context = {'detail': detail}
+    opts = detail._meta
+    context = {'detail': detail, 'opts': opts}
     return render(request, 'monitor/detail.html', context)
 
 
