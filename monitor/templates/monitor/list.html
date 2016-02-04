@@ -16,11 +16,11 @@
   <div class='col-sm-3'>
     <table class='table table-condensed table-bordered table-striped'>
       <tr>
-        <th colspan='2'>{{ group }}</th>
+        <th colspan='2'>{{ group | upper}}</th>
       </tr>
       {% for host in hosts %}
         <tr>
-          <td><a href="{% url 'monitor:detail' host.id %}">{{ host }}</a></td>
+          <td><a href="{% url 'monitor:detail' host.id %}">{{ host | upper}}</a></td>
           <td class='{{ host.status }}'>{{ host.status }}</td>
         </tr>
       {% endfor %}
