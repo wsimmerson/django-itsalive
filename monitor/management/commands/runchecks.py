@@ -12,15 +12,15 @@ import os
 class Command(BaseCommand):
 
     def handle(self, *args, **options):
-        time_threshold = datetime.now() - timedelta(minutes=5)
+        time_threshold = datetime.now() - timedelta(minutes=4)
         hosts_to_check = Host.objects.filter(updated__lt=time_threshold)
 
         for host in hosts_to_check:
             if os.name == 'nt':
-                proc = subprocess.Popen(['ping', '-n', '4', host.ip4address],
+                proc = subprocess.Popen(['ping', '-n', '3', host.ip4address],
                                         stdout=subprocess.PIPE)
             elif os.name == 'posix':
-                proc = subprocess.Popen(['ping', '-c', '4', host.ip4address],
+                proc = subprocess.Popen(['ping', '-c', '3', host.ip4address],
                                         stdout=subprocess.PIPE)
 
             try:
