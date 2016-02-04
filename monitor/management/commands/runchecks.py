@@ -16,10 +16,10 @@ class Command(BaseCommand):
 
         for host in hosts_to_check:
             if os.name == 'nt':
-                proc = subprocess.Popen(['ping', '-n', '1', host.ip4address],
+                proc = subprocess.Popen(['ping', '-n', '4', host.ip4address],
                                         stdout=subprocess.PIPE)
             elif os.name == 'posix':
-                proc = subprocess.Popen(['ping', '-c', '1', host.ip4address],
+                proc = subprocess.Popen(['ping', '-c', '4', host.ip4address],
                                         stdout=subprocess.PIPE)
 
             try:
@@ -31,11 +31,11 @@ class Command(BaseCommand):
             host.status_detail = details.replace('\r\n', '<br>')
             host.status_detail = host.status_detail.replace('\n', '<br>')
 
-            if 'unreachable' in details or '100% packet loss' in details or '100% loss' in details:
+            if '100% packet loss' in details or '100% loss' in details:
                 if host.status == 'UP':
                     host.status = 'WARNING'
                     message = "Failed to verify status of " + host.name
-                    message += "<br>" + host.status_detail
+                    message += "<br><br>" + host.status_detail
                     send_mail('WARNING: ' + host.name,
                               '',
                               settings.EMAIL_HOST_USER,
@@ -43,7 +43,7 @@ class Command(BaseCommand):
                               html_message=message)
                 elif host.status == 'WARNING':
                     message = "Failed to verify status of " + host.name
-                    message += "<br>" + host.status_detail
+                    message += "<br><br>" + host.status_detail
                     host.status = 'UNREACHABLE'
                     send_mail('2nd WARNING: ' + host.name + ' UNREACHABLE',
                               '',
@@ -55,7 +55,7 @@ class Command(BaseCommand):
                 if host.status == 'WARNING' or host.status == 'UNREACHABLE':
                     host.status = 'UP'
                     message = "Successfully connected to " + host.name
-                    message += "<br>" + host.status_detail
+                    message += "<br><br>" + host.status_detail
                     send_mail('RECOVERY: ' + host.name,
                               '',
                               settings.EMAIL_HOST_USER,
