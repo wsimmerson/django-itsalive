@@ -2,6 +2,7 @@ from django.core.management.base import BaseCommand, CommandError
 from django.core.mail import send_mail
 from django.conf import settings
 from monitor.models import Host
+from monitor import hipchat
 
 from datetime import datetime, timedelta
 import subprocess
@@ -41,6 +42,9 @@ class Command(BaseCommand):
                               settings.EMAIL_HOST_USER,
                               settings.EMAIL_TO,
                               html_message=message)
+                    if settings.HIPCHAT_NOTIFY:
+                        hipchat.send(message, 'yellow')
+
                 elif host.status == 'WARNING':
                     message = "Failed to verify status of " + host.name
                     message += "<br><br>" + host.status_detail
@@ -50,6 +54,9 @@ class Command(BaseCommand):
                               settings.EMAIL_HOST_USER,
                               settings.EMAIL_TO,
                               html_message=message)
+                    if settings.HIPCHAT_NOTIFY:
+                        hipchat.send(message, 'red')
+
             else:
                 host.last_seen = datetime.now()
                 if host.status == 'WARNING' or host.status == 'UNREACHABLE':
@@ -61,5 +68,7 @@ class Command(BaseCommand):
                               settings.EMAIL_HOST_USER,
                               settings.EMAIL_TO,
                               html_message=message)
+                    if settings.HIPCHAT_NOTIFY:
+                        hipchat.send(message, 'green')
 
             host.save()

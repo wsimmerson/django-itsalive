@@ -3,3 +3,11 @@
 <p>Uses system ping to check if an IPv4 address is on line in the background while serving a webapp for viewing and managing data</p>
 <p>Use CRON to run manage.py runchecks at intervals</p>
 <p>Settings file not included.  Uses Djangos built in send_mail, and additional EMAIL_TO setting. (list or tuple of emails addresses to notify)  Make sure to update accordingly</p>
+<p>
+Specify in settings for Hipchat notifications
+
+HIPCHAT_NOTIFY = True
+HIPCHAT_TOKEN = 'blahblah'
+HIPCHAT_ROOM = 'nameorid'
+
+</p>
