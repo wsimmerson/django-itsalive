@@ -11,7 +11,7 @@
     <tr>
       <td  style='width: 20%'>
         <form method='GET' action=''>
-          <div class='input-group' >
+          <div class='input-group input-group-sm' >
           <select name='hostgroup' class='form-control selectpicker'>
             <option value='' default=default>ALL</option>
               {% for group in hostgroups %}
@@ -24,9 +24,9 @@
           </div>
         </form>
       </td>
-      <td class='UP'>{{ up }}</td>
-      <td class='WARNING'><a href='{% url 'monitor:warning_list' %}'>{{ warning }}</a></td>
-      <td class='UNREACHABLE'><a href='{% url 'monitor:unreachable_list' %}'>{{ unreachable }}</a></td>
+      <td style='line-height:30px;' class='UP'>{{ up }}</td>
+      <td style='line-height:30px;' class='WARNING'><a href='{% url 'monitor:warning_list' %}'>{{ warning }}</a></td>
+      <td style='line-height:30px;' class='UNREACHABLE'><a href='{% url 'monitor:unreachable_list' %}'>{{ unreachable }}</a></td>
     </tr>
     <tr><td id='overview_map' colspan='4'></td></tr>
   </table>
