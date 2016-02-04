@@ -37,11 +37,12 @@ class Command(BaseCommand):
                     host.status = 'WARNING'
                     message = "Failed to verify status of " + host.name
                     message += "<br><br>" + host.status_detail
-                    send_mail('WARNING: ' + host.name,
-                              '',
-                              settings.EMAIL_HOST_USER,
-                              settings.EMAIL_TO,
-                              html_message=message)
+                    if settings.EMAIL_NOTIFY:
+                        send_mail('WARNING: ' + host.name,
+                                  '',
+                                  settings.EMAIL_HOST_USER,
+                                  settings.EMAIL_TO,
+                                  html_message=message)
                     if settings.HIPCHAT_NOTIFY:
                         hipchat.send(message, 'yellow')
 
@@ -49,11 +50,12 @@ class Command(BaseCommand):
                     message = "Failed to verify status of " + host.name
                     message += "<br><br>" + host.status_detail
                     host.status = 'UNREACHABLE'
-                    send_mail('2nd WARNING: ' + host.name + ' UNREACHABLE',
-                              '',
-                              settings.EMAIL_HOST_USER,
-                              settings.EMAIL_TO,
-                              html_message=message)
+                    if settings.EMAIL_NOTIFY:
+                        send_mail('2nd WARNING: ' + host.name + ' UNREACHABLE',
+                                  '',
+                                  settings.EMAIL_HOST_USER,
+                                  settings.EMAIL_TO,
+                                  html_message=message)
                     if settings.HIPCHAT_NOTIFY:
                         hipchat.send(message, 'red')
 
@@ -63,11 +65,12 @@ class Command(BaseCommand):
                     host.status = 'UP'
                     message = "Successfully connected to " + host.name
                     message += "<br><br>" + host.status_detail
-                    send_mail('RECOVERY: ' + host.name,
-                              '',
-                              settings.EMAIL_HOST_USER,
-                              settings.EMAIL_TO,
-                              html_message=message)
+                    if settings.EMAIL_NOTIFY:
+                        send_mail('RECOVERY: ' + host.name,
+                                  '',
+                                  settings.EMAIL_HOST_USER,
+                                  settings.EMAIL_TO,
+                                  html_message=message)
                     if settings.HIPCHAT_NOTIFY:
                         hipchat.send(message, 'green')
 

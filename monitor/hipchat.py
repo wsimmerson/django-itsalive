@@ -17,7 +17,8 @@ def send(message, color):
         'from': "It's Alive",
         'message_format': 'html',
         'json': True,
-        'color': color
+        'color': color,
+        'notify': True
     }
 
     r = requests.post(url, data=json.dumps(msg), headers=headers)
