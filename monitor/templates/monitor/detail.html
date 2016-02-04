@@ -23,10 +23,10 @@
           <td><pre>{{ detail.address | safe }}</pre></td>
         </tr>
         <tr>
-          <td>{{ detail.ip4address }}</td>
+          <td><label> IP Address:</label> {{ detail.ip4address }}</td>
         </tr>
         <tr>
-          <td>{{ detail.latitude_y }}, {{ detail.longitude_x }}</td>
+          <td><label> Coordinates: </label> {{ detail.latitude_y }}, {{ detail.longitude_x }}</td>
         </tr>
         <tr>
           <td> <label>Last Seen:</label> {{ detail.last_seen }}</td>

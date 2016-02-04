@@ -11,7 +11,7 @@ def host_list(request):
     groups = Hostgroup.objects.all().order_by('-name')
     host_list = OrderedDict()
     for group in groups:
-        host_list[group.name] = Host.objects.filter(group__name=group.name)
+        host_list[group.name] = Host.objects.filter(group__name=group.name).order_by('name')
 
     up = len(Host.objects.filter(status='UP'))
     warning = len(Host.objects.filter(status='WARNING'))
