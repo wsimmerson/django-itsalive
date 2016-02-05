@@ -24,10 +24,7 @@
           </div>
         </form>
       </td>
-      <td style='line-height:30px;' class='UP'>{{ up }}</td>
-      <td style='line-height:30px;' class='WARNING'><a href='{% url 'monitor:warning_list' %}'>{{ warning }}</a></td>
-      <td style='line-height:30px;' class='UNREACHABLE'><a href='{% url 'monitor:unreachable_list' %}'>{{ unreachable }}</a></td>
-    </tr>
+      </tr>
     <tr><td id='overview_map' colspan='4'></td></tr>
   </table>
 
@@ -49,4 +46,14 @@
 
   </script>
   {% include 'refreshpage.html' %}
+{% endblock %}
+
+{% block status %}
+
+    <p class='navbar-text' style='text-align: center !important; '>
+      <span class='label label-success'>{{ up }}</span>
+      <span class='label label-warning'><a href='{% url 'monitor:warning_list' %}'>{{ warning }}</a></span>
+      <span class='label label-danger'><a href='{% url 'monitor:unreachable_list' %}'>{{ unreachable }}</a></span>
+    </p>
+
 {% endblock %}
