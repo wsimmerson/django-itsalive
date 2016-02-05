@@ -45,6 +45,8 @@
 
     <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
     <script>
+      var height = $(window).height() - 140;
+      $("#detailmap").height(height);
       var map = L.map('detailmap').setView([{{ detail.latitude_y }}, {{ detail.longitude_x }}], 13);
 
       {% include 'mapicons.html' %}
