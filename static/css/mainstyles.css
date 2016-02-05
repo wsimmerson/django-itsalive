@@ -19,7 +19,7 @@ tbody {
 }
 
 .table th {
-  background-color: #101010;
+  background-color: #363F45;
   color: #ccc;
   text-align: center;
 }
@@ -37,4 +37,13 @@ td.UP {
 td.UNREACHABLE {
   background-color: pink;
   text-align: center;
+}
+
+.navbar-custom,
+.navbar-custom a,
+.navbar-custom a:hover {
+  background-color: #363f45;
+  font-weight: bold;
+  color: #fff;
+  text-decoration: none;
 }

@@ -1,27 +1,27 @@
 {% load staticfiles %}
 
-<nav class="navbar navbar-inverse navbar-fixed-top">
+<nav class="navbar navbar-custom navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="{% url 'front' %}">
-         It's Alive
+         ITS ALIVE!
       </a>
     </div>
 
     {% if user.is_authenticated %}
       <div class="collapse navbar-collapse">
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="{% url 'monitor:host_list' %}">Host List</a></li>
-          <li><a href="{% url 'monitor:overview_map' %}">Overview Map</a></li>
+          <li><a href="{% url 'monitor:host_list' %}">HOSTS</a></li>
+          <li><a href="{% url 'monitor:overview_map' %}">MAP</a></li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
               <span class='glyphicon glyphicon-cog'></span>
             </a>
             <ul class="dropdown-menu">
               {% if user.is_staff %}
-                <li><a href="/admin">Admin</a></li>
+                <li><a href="/admin">ADMIN</a></li>
               {% endif %}
-              <li><a href="/logout">Logout</a></li>
+              <li><a href="/logout">LOGOUT</a></li>
             </ul>
           </li>
         </ul>

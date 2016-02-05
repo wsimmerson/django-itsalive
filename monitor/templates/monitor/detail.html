@@ -5,40 +5,41 @@
     <table class='table table-condensed table-bordered table-striped'>
       <tbody>
         <tr>
-          <th colspan='2'>{{ detail.name }}</th>
+          <th colspan='3'>
+            {% if user.is_staff %}
+              {% load admin_urls %}
+              <a href="{% url opts|admin_urlname:'change' detail.id %}" class='btn btn-sm btn-warning' style='margin-right: 10px'>Edit</a>
+            {% endif %}
+            {{ detail.name }}
+          </th>
         </tr>
         <tr>
-          <th style='width: 30%'>{{ detail.group }}</th>
+          <td colspan='2'></td>
           <td rowspan='9' id='detailmap'></td>
         </tr>
         <tr>
-          <td>
-            {% if user.is_staff %}
-              {% load admin_urls %}
-              <a href="{% url opts|admin_urlname:'change' detail.id %}" class='btn btn-sm btn-warning'>Edit</a>
-            {% endif %}
-          </td>
+          <th colspan='2' style='width: 30%'>{{ detail.group }}</th>
         </tr>
         <tr>
-          <td><pre>{{ detail.address | safe }}</pre></td>
+          <th><label>Address:</label></th><td> {{ detail.address | safe | upper }}</td>
         </tr>
         <tr>
-          <td><label> IP Address:</label> {{ detail.ip4address }}</td>
+          <th><label> IP Address:</label></th><td> {{ detail.ip4address }}</td>
         </tr>
         <tr>
-          <td><label> Coordinates: </label> {{ detail.latitude_y }}, {{ detail.longitude_x }}</td>
+          <th><label> Coordinates: </label></th><td> {{ detail.latitude_y }}, {{ detail.longitude_x }}</td>
         </tr>
         <tr>
-          <td> <label>Last Seen:</label> {{ detail.last_seen }}</td>
+          <th><label>Last Seen:</label></th><td> {{ detail.last_seen }}</td>
         </tr>
         <tr>
-          <td><label>Last Check:</label> {{ detail.updated }}</td>
+          <th><label>Last Check:</label></th><td> {{ detail.updated }}</td>
         </tr>
         <tr>
-          <td class='{{ detail.status }}' style='height: 200px; line-height: 200px'><strong>{{ detail.status }}<strong></td>
+          <td class='{{ detail.status }}' style='height: 200px; line-height: 200px' colspan='2'><strong>{{ detail.status }}<strong></td>
         </tr>
         <tr>
-          <td colspan=''>{{ detail.status_detail | safe}}</td>
+          <td colspan='2'>{{ detail.status_detail | safe}}</td>
         </tr>
       </tbody>
     </table>
