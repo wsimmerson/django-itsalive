@@ -13,17 +13,11 @@
         <ul class="nav navbar-nav navbar-right">
           <li><a href="{% url 'monitor:host_list' %}">HOSTS</a></li>
           <li><a href="{% url 'monitor:overview_map' %}">MAP</a></li>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
-              <span class='glyphicon glyphicon-cog'></span>
-            </a>
-            <ul class="dropdown-menu">
-              {% if user.is_staff %}
-                <li><a href="/admin">ADMIN</a></li>
-              {% endif %}
-              <li><a href="/logout">LOGOUT</a></li>
-            </ul>
-          </li>
+          {% if user.is_staff %}
+            <li><a href="/admin"><span class='glyphicon glyphicon-cog'></span></a></li>
+          {% endif %}
+          <li><a href="/logout"><span class='glyphicon glyphicon-log-out'></span></a></li>
+
         </ul>
       </div>
     {% endif %}
