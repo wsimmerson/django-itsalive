@@ -25,17 +25,20 @@ tbody {
 }
 
 td.WARNING {
-  background-color: yellow;
+  background-color: #f0ad4e;
+  border-color: #eea236;
   text-align: center;
 }
 
  td.UP {
-  background-color: palegreen;
+  background-color: #5cb85c;
+  border-color: #4cae4c;
   text-align: center;
 }
 
 td.UNREACHABLE {
-  background-color: pink;
+  background-color: #d9534f;
+  border-color: #d43f3a;
   text-align: center;
 }
 
