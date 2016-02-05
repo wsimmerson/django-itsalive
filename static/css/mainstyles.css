@@ -20,7 +20,7 @@ tbody {
 
 .table th {
   background-color: #363F45;
-  color: #ccc;
+  color: #fff;
   text-align: center;
 }
 
@@ -40,10 +40,24 @@ td.UNREACHABLE {
 }
 
 .navbar-custom,
-.navbar-custom a,
-.navbar-custom a:hover {
+.navbar-custom a {
   background-color: #363f45;
   font-weight: bold;
   color: #fff;
   text-decoration: none;
+}
+
+a.navbar-brand,
+a.navbar-brand:hover {
+  color: #fff;
+  font-style: italic;
+}
+
+ul.nav.navbar-nav.navbar-right li a:hover {
+  background-color: #eee;
+  color: #363F45;
+}
+
+td a {
+  color: #363F45;
 }
