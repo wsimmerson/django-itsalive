@@ -12,7 +12,7 @@
       {% for host in hosts %}
         <tr>
           <td><a href="{% url 'monitor:detail' host.id %}">{{ host | upper}}</a></td>
-          {% with 'img/'|add:host.status|add:'.png' as img_static %}
+          {% with 'img/'|add:host.status|add:'.png'|lower as img_static %}
             <td style='width: 20px'><img src="{% static img_static %}" style='width: 15px;'></td>
           {% endwith %}
         </tr>
