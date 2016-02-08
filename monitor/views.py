@@ -10,14 +10,18 @@ from collections import OrderedDict
 def host_list(request):
     groups = Hostgroup.objects.all().order_by('-name')
     host_list = OrderedDict()
+    sized_list = OrderedDict()
     for group in groups:
         host_list[group.name] = Host.objects.filter(group__name=group.name).order_by('name')
+
+    for k in sorted(host_list, key=lambda k: len(host_list[k]), reverse=True):
+        sized_list[k] = host_list[k]
 
     up = len(Host.objects.filter(status='UP'))
     warning = len(Host.objects.filter(status='WARNING'))
     unreachable = len(Host.objects.filter(status='UNREACHABLE'))
     context = {
-        'host_list': host_list,
+        'host_list': sized_list,
         'up': up,
         'warning': warning,
         'unreachable': unreachable
