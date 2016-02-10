@@ -44,7 +44,7 @@
           <td colspan='2'>
             <div class="progress">
               {% for h in history %}
-                <div class="progress-bar progress-bar-{{ h.status }}" title="{{ h.stamp }}" style='width: 0.3%'></div>
+                <div class="progress-bar progress-bar-{{ h.status }}" title="{{ h.stamp }}" style='width:{{ percent }}%'></div>
               {% endfor %}
             </div>
             {{ detail.status_detail | safe}}
