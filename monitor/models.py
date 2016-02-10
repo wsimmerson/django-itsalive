@@ -28,3 +28,9 @@ class Host(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class History(models.Model):
+    host = models.ForeignKey(Host, on_delete=models.CASCADE)
+    status = models.CharField(max_length=25)
+    stamp = models.DateTimeField(auto_now=True)

@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, render
 from django.contrib.auth.decorators import login_required
-from .models import Hostgroup, Host
+from .models import Hostgroup, Host, History
 
 from collections import OrderedDict
 
@@ -33,8 +33,13 @@ def host_list(request):
 @login_required
 def detail(request, host_id):
     detail = get_object_or_404(Host, id=host_id)
+    history = History.objects.filter(host=detail)
     opts = detail._meta
-    context = {'detail': detail, 'opts': opts}
+    context = {
+               'detail': detail,
+               'opts': opts,
+               'history': history
+               }
     return render(request, 'monitor/detail.html', context)
 
 

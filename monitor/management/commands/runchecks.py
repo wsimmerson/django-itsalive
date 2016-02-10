@@ -2,7 +2,7 @@ from django.core.management.base import BaseCommand, CommandError
 from django.core.urlresolvers import reverse
 from django.core.mail import send_mail
 from django.conf import settings
-from monitor.models import Host
+from monitor.models import Host, History
 from monitor import hipchat
 
 from datetime import datetime, timedelta
@@ -83,6 +83,17 @@ class Command(BaseCommand):
                             host.status = 'WARNING'
 
                     host.save()
+                    tags = {
+                        'UP': 'success',
+                        'WARNING': 'warning',
+                        'UNREACHABLE': 'danger'
+                    }
+                    history = History(host=host, status=tags[host.status])
+                    history.save()
+
                 os.remove(lockfile)
+                time_th = datetime.now() - timedelta(hours=24)
+                History.objects.filter(stamp__lt=time_th).delete()
+
         except:
             os.remove(lockfile)

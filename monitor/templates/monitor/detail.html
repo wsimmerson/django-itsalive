@@ -36,10 +36,19 @@
           <th><label>Last Check:</label></th><td> {{ detail.updated }}</td>
         </tr>
         <tr>
-          <td class='{{ detail.status }}' style='height: 200px; line-height: 200px' colspan='2'><strong>{{ detail.status }}<strong></td>
+          <td class='{{ detail.status }}' style='height: 200px; line-height: 200px' colspan='2'>
+            <strong>{{ detail.status }}<strong>
+          </td>
         </tr>
         <tr>
-          <td colspan='2'>{{ detail.status_detail | safe}}</td>
+          <td colspan='2'>
+            <div class="progress">
+              {% for h in history %}
+                <div class="progress-bar progress-bar-{{ h.status }}" title="{{ h.stamp }}" style='width: 0.3%'></div>
+              {% endfor %}
+            </div>
+            {{ detail.status_detail | safe}}
+          </td>
         </tr>
       </tbody>
     </table>
