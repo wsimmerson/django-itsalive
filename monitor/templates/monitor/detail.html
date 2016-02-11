@@ -14,11 +14,8 @@
           </th>
         </tr>
         <tr>
-          <td colspan='2'></td>
-          <td rowspan='9' id='detailmap'></td>
-        </tr>
-        <tr>
           <th colspan='2' style='width: 30%'>{{ detail.group }}</th>
+          <td rowspan='8' id='detailmap'></td>
         </tr>
         <tr>
           <th><label>Address:</label></th><td> {{ detail.address | safe | upper }}</td>
@@ -35,9 +32,12 @@
         <tr>
           <th><label>Last Check:</label></th><td> {{ detail.updated }}</td>
         </tr>
+
         <tr>
           <td class='{{ detail.status }}' style='height: 200px; line-height: 200px' colspan='2'>
+
             <strong>{{ detail.status }}<strong>
+
           </td>
         </tr>
         <tr>

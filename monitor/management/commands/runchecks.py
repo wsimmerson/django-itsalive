@@ -26,9 +26,12 @@ class Command(BaseCommand):
                     open(lockfile, 'w+').close()
 
                 for host in hosts_to_check:
+                    link = "<a href='"
                     url = "http://" + settings.ALLOWED_HOSTS[0]
                     url += reverse('monitor:detail',
                                    kwargs={'host_id': host.id})
+
+                    link += url + "'>" + url + "</a>"
 
                     if os.name == 'nt':
                         proc = subprocess.Popen(['ping', '-n', '3',
@@ -48,13 +51,22 @@ class Command(BaseCommand):
                     host.status_detail = details.replace('\r\n', '<br>')
                     host.status_detail = host.status_detail.replace('\n', '<br>')
 
+                    stat_all = History.objects.filter(host=host)
+                    success = History.objects.filter(host=host, status='success')
+
+                    stat = (len(success) / len(stat_all)) * 100
+
+                    stat_line = "Reachable for {}% of checks in the last 24 hours".format(stat)
+                    print(link, stat_line)
+
                     if '100% packet loss' in details or '100% loss' in details:
                         if host.status == 'UP':
                             host.status = 'WARNING'
 
                         elif host.status == 'WARNING':
                             message = "Failed to verify status of " + host.name
-                            message += "<br><br>" + url
+                            message += "<br><br>" + link
+                            message += "<br><br>" + stat_line
                             host.status = 'UNREACHABLE'
                             if settings.EMAIL_NOTIFY:
                                 send_mail('WARNING: ' + host.name + ' UNREACHABLE',
@@ -65,12 +77,14 @@ class Command(BaseCommand):
                             if settings.HIPCHAT_NOTIFY:
                                 hipchat.send(message, 'red')
 
+
                     else:
                         host.last_seen = datetime.now()
                         if host.status == 'WARNING':
                             host.status = 'UP'
                             message = "Successfully connected to " + host.name
-                            message += "<br><br>" + url
+                            message += "<br><br>" + link
+                            message += "<br><br>" + stat_line
                             if settings.EMAIL_NOTIFY:
                                 send_mail('RECOVERY: ' + host.name,
                                           '',
@@ -95,5 +109,6 @@ class Command(BaseCommand):
                 time_th = datetime.now() - timedelta(hours=24)
                 History.objects.filter(stamp__lt=time_th).delete()
 
-        except:
+        except Exception as e:
             os.remove(lockfile)
+            print(e)
