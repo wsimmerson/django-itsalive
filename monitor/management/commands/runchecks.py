@@ -20,6 +20,11 @@ class Command(BaseCommand):
                 time_th = datetime.now() - timedelta(minutes=4)
                 hosts_to_check = Host.objects.filter(updated__lt=time_th)
 
+                stat_all = History.objects.filter()
+                success = History.objects.filter(status='success')
+
+                global_stat = (len(success) / len(stat_all)) * 100
+
                 if os.name == 'posix':
                     os.mknod(lockfile)
                 elif os.name == 'nt':
@@ -57,6 +62,7 @@ class Command(BaseCommand):
                     stat = (len(success) / len(stat_all)) * 100
 
                     stat_line = "Reachable for {}% of checks in the last 24 hours".format(int(stat))
+                    stat_line += "<br> Global Average {}".format(int(global_stat))
 
 
                     if '100% packet loss' in details or '100% loss' in details:
