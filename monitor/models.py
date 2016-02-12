@@ -10,7 +10,7 @@ class Hostgroup(models.Model):
 
 
 class Host(models.Model):
-    geolink = "<a href='http://mygeoposition.com/'>Lookup GeoCode</a>"
+    geolink = "<a href='http://mygeoposition.com/' target='_top'>Lookup GeoCode</a>"
     name = models.CharField(max_length=255)
     group = models.ForeignKey(Hostgroup, on_delete=models.CASCADE)
     address = models.TextField()
