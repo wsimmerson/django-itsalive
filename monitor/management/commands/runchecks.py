@@ -20,10 +20,18 @@ class Command(BaseCommand):
                 time_th = datetime.now() - timedelta(minutes=4)
                 hosts_to_check = Host.objects.filter(updated__lt=time_th)
 
-                stat_all = History.objects.filter()
-                success = History.objects.filter(status='success')
+                stats = []
+                for host in Host.objects.all():
+                    stat_all = History.objects.filter(host=host)
+                    success = History.objects.filter(host=host, status='success')
 
-                global_stat = (len(success) / len(stat_all)) * 100
+                    stats.append((len(success) / len(stat_all)) * 100)
+
+                stat_combined = 0
+                for stat in stats:
+                    stat_combined += stat
+
+                global_stat = (stat_combined / len(stats))
 
                 if os.name == 'posix':
                     os.mknod(lockfile)
