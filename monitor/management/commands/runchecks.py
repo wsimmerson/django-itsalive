@@ -56,8 +56,8 @@ class Command(BaseCommand):
 
                     stat = (len(success) / len(stat_all)) * 100
 
-                    stat_line = "Reachable for {}% of checks in the last 24 hours".format(stat)
-                    print(link, stat_line)
+                    stat_line = "Reachable for {}% of checks in the last 24 hours".format(int(stat))
+
 
                     if '100% packet loss' in details or '100% loss' in details:
                         if host.status == 'UP':
