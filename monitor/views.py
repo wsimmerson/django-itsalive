@@ -39,7 +39,10 @@ def detail(request, host_id):
     detail = get_object_or_404(Host, id=host_id)
     history = History.objects.filter(host=detail)
     opts = detail._meta
-    percent = 100 / len(history)
+    if not history:
+        percent = 0
+    else:
+        percent = 100 / len(history)
     context = {
                'detail': detail,
                'opts': opts,
