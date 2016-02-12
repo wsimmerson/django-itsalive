@@ -71,6 +71,7 @@ class Command(BaseCommand):
                     stat_all = History.objects.filter(host=host)
                     success = History.objects.filter(host=host, status='success')
 
+                    stat_line = ''
                     try:
                         stat = (len(success) / len(stat_all)) * 100
                         stat_line = "Reachable for {}% of checks in the last 24 hours".format(int(stat))
