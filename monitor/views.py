@@ -3,12 +3,15 @@ from django.contrib.auth.decorators import login_required
 from .models import Hostgroup, Host, History
 
 from collections import OrderedDict
+from datetime import datetime, timedelta
 
 
 # Create your views here.
 @login_required
 def host_list(request):
+    delta = datetime.now() - timedelta(hours=1)
     groups = Hostgroup.objects.all().order_by('-name')
+    down = Host.objects.filter(status='UNREACHABLE', last_seen__lt=delta).order_by('last_seen')
     host_list = OrderedDict()
     sized_list = OrderedDict()
     for group in groups:
@@ -24,7 +27,8 @@ def host_list(request):
         'host_list': sized_list,
         'up': up,
         'warning': warning,
-        'unreachable': unreachable
+        'unreachable': unreachable,
+        'downers': down
     }
 
     return render(request, 'monitor/list.html', context)

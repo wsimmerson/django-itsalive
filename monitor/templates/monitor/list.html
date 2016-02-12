@@ -2,7 +2,19 @@
 {% load staticfiles %}
 
 {% block content %}
-
+  {% if downers %}
+    <div class='alert alert-danger'>
+      <ul>
+      {% for down in downers %}
+        <li>
+          <span class='glyphicon glyphicon-warning-sign'></span>
+          <a href="{% url 'monitor:detail' down.id %}"><strong>{{ down.name }}</strong></a>
+           has been UNREACHABLE for <strong>{{ down.last_seen | timesince}}</strong>
+        </li>
+      {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
   {% for group, hosts in host_list.items %}
   <div class='col-sm-3'>
     <table class='table table-condensed table-bordered table-striped'>

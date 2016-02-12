@@ -27,10 +27,10 @@
           <th><label> Coordinates: </label></th><td> {{ detail.latitude_y }}, {{ detail.longitude_x }}</td>
         </tr>
         <tr>
-          <th><label>Last Seen:</label></th><td> {{ detail.last_seen }}</td>
+          <th><label>Last Seen:</label></th><td> {{ detail.last_seen | timesince }} ( {{ detail.last_seen }} )</td>
         </tr>
         <tr>
-          <th><label>Last Check:</label></th><td> {{ detail.updated }}</td>
+          <th><label>Last Check:</label></th><td> {{ detail.updated | timesince }} ( {{ detail.updated }} )</td>
         </tr>
 
         <tr>
