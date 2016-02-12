@@ -23,7 +23,8 @@ class Command(BaseCommand):
                 stats = []
                 for host in Host.objects.all():
                     stat_all = History.objects.filter(host=host)
-                    success = History.objects.filter(host=host, status='success')
+                    success = History.objects.filter(host=host,
+                                                     status='success')
 
                     try:
                         stats.append((len(success) / len(stat_all)) * 100)
@@ -72,13 +73,11 @@ class Command(BaseCommand):
 
                     try:
                         stat = (len(success) / len(stat_all)) * 100
-
                         stat_line = "Reachable for {}% of checks in the last 24 hours".format(int(stat))
                     except:
-                        pass
+                        stat_line = ""
 
                     stat_line += "<br> Global Average {}%".format(int(global_stat))
-
 
                     if '100% packet loss' in details or '100% loss' in details:
                         if host.status == 'UP':
@@ -97,7 +96,6 @@ class Command(BaseCommand):
                                           html_message=message)
                             if settings.HIPCHAT_NOTIFY:
                                 hipchat.send(message, 'red')
-
 
                     else:
                         host.last_seen = datetime.now()
