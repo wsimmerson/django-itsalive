@@ -67,9 +67,13 @@ class Command(BaseCommand):
                     stat_all = History.objects.filter(host=host)
                     success = History.objects.filter(host=host, status='success')
 
-                    stat = (len(success) / len(stat_all)) * 100
+                    try:
+                        stat = (len(success) / len(stat_all)) * 100
 
-                    stat_line = "Reachable for {}% of checks in the last 24 hours".format(int(stat))
+                        stat_line = "Reachable for {}% of checks in the last 24 hours".format(int(stat))
+                    except:
+                        pass
+                        
                     stat_line += "<br> Global Average {}%".format(int(global_stat))
 
 
