@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  {% if host_id %}
+    <a href="{% url 'monitor:history' %}" class="label label-primary">Show All</a>
+  {% endif %}
+
+  <div class='pager'>
+    {% if history.has_previous %}
+      <li><a href="?page={{ history.previous_page_number }}&id={{host_id}}">previous</a></li>
+    {% endif %}
+    {% if history.has_next %}
+      <li><a href="?page={{ history.next_page_number }}&id={{host_id}}">next</a></li>
+    {% endif %}
+  </div>
+
+  <table class='table table-condensed table-striped table-bordered'>
+    {% for h in history %}
+      <tr>
+        <td class='text-{{h.status}}'>
+          {% if not host_id %}
+            <a href="{% url 'monitor:history' %}?id={{ h.host.id }}">
+              <span class='glyphicon glyphicon-th-list' title='Filter This Host'></span>
+            </a>
+          {% endif %}
+            <a href="{% url 'monitor:detail' h.host.id %}" title="View Details">
+              {{ h.host.name | upper }}
+            </a>
+          </a>
+        </td>
+        <td class='text-{{h.status}}'> {{ h.stamp | timesince | upper }}</td>
+        <td class='text-{{h.status}}'> <strong>{{ h.status | upper }}</strong></td>
+      </tr>
+    {% endfor %}
+  </table>
+
+  <div class='pager'>
+    {% if history.has_previous %}
+      <li><a href="?page={{ history.previous_page_number }}&id={{host_id}}">previous</a></li>
+    {% endif %}
+    {% if history.has_next %}
+      <li><a href="?page={{ history.next_page_number }}&id={{host_id}}">next</a></li>
+    {% endif %}
+  </div>
+
+{% endblock %}

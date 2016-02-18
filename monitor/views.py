@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404, render
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import Hostgroup, Host, History
 
 from collections import OrderedDict
@@ -88,8 +89,39 @@ def warning_list(request):
     return render(request, 'monitor/status_list.html', {'hosts': hosts,
                                                         'type': 'Warning'})
 
+
 @login_required
 def unreachable_list(request):
     hosts = Host.objects.filter(status='UNREACHABLE')
     return render(request, 'monitor/status_list.html', {'hosts': hosts,
                                                         'type': 'Unreachable'})
+
+
+@login_required
+def history(request):
+    host_id = request.GET.get('id')
+    if host_id == 'None':
+        host_id = None
+
+    if host_id is not None and host_id != '':
+        print(host_id)
+        history = History.objects.filter(host__id=host_id).order_by('-stamp')
+    else:
+        history = History.objects.all().order_by('-stamp')
+
+    paginator = Paginator(history, 300)
+
+    page = request.GET.get('page')
+    try:
+        history = paginator.page(page)
+    except PageNotAnInteger:
+        history = paginator.page(1)
+    except EmptyPage:
+        history = paginator.page(paginator.num_pages)
+
+    context = {
+        'history': history,
+        'host_id': host_id
+    }
+
+    return render(request, 'monitor/history.html', context)

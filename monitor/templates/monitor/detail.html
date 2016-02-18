@@ -15,7 +15,7 @@
         </tr>
         <tr>
           <th colspan='2' style='width: 30%'>{{ detail.group }}</th>
-          <td rowspan='8' id='detailmap'></td>
+          <td rowspan='9' id='detailmap'></td>
         </tr>
         <tr>
           <th><label>Address:</label></th><td> {{ detail.address | safe | upper }}</td>
@@ -41,12 +41,20 @@
           </td>
         </tr>
         <tr>
-          <td colspan='2'>
+          <td colspan='2' style='text-align: center'>
             <div class="progress">
               {% for h in history %}
                 <div class="progress-bar progress-bar-{{ h.status }} progress-bar-striped active" title="{{ h.stamp }}" style='width:{{ percent }}%'></div>
               {% endfor %}
             </div>
+            <a href="{% url 'monitor:history' %}?id={{detail.id}}" class='label label-primary'>
+              View History
+            </a>
+          </td>
+        </tr>
+        <tr>
+          <td colspan='2'>
+
             {{ detail.status_detail | safe}}
           </td>
         </tr>

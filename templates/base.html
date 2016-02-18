@@ -29,6 +29,7 @@
             <ul class="nav navbar-nav navbar-right">
 
               <li><a href="{% url 'monitor:host_list' %}">HOSTS</a></li>
+              <li><a href="{% url 'monitor:history' %}">HISTORY</a></li>
               <li><a href="{% url 'monitor:overview_map' %}">MAP</a></li>
               {% if user.is_staff %}
                 <li><a href="/admin"><span class='glyphicon glyphicon-cog'></span></a></li>
