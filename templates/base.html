@@ -43,6 +43,13 @@
 
       </div>
     </nav>
+    <nav class="subnav">
+      <ul>
+        {% for link in custom_links %}
+          <li><a href="{{ link.url }}" target="_blank">{{ link.name }}</a>
+        {% endfor %}
+      </ul>
+    </nav>
 
     <div style='height: 70px;'></div>
 
